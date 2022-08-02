@@ -1,13 +1,13 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-02 15:14:05
+ * @LastEditTime: 2022-08-02 23:52:33
 -->
 <template>
   <el-aside width="auto">
     <div class="logo-name">
-      <p v-if="$store.state.logoShow"><i class="el-icon-platform-eleme"></i></p>
-      <p v-else>Vue+Element-UI</p>
+      <p v-if="$store.state.logoShow"><i class="el-icon-monitor" /></p>
+      <p v-else><i class="el-icon-monitor" />   后台管理系统</p>
     </div>
     <el-menu
       :default-active="$route.path"
@@ -90,11 +90,15 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .logo-name {
   width: auto;
   color: #fff;
+  font-size: 15px;
+  .el-icon-monitor {
+    font-size: 22px;
   font-weight: bold;
+  }
 }
 .el-menu-vertical:not(.el-menu--collapse) {
   width: 200px;

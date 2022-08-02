@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-07-25 21:33:15
- * @LastEditTime: 2022-08-01 18:56:52
+ * @LastEditTime: 2022-08-02 21:28:15
 -->
 <template>
     <div class="register-vue">
@@ -95,7 +95,7 @@ export default {
     align-items: center;
     color: #fff;
     background-repeat: no-repeat;
-    background: url(../assets/imgs/2.jpg);
+    background: url(../assets/images/404.jpg);
 }
 
 .formInline {

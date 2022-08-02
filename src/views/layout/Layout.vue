@@ -1,16 +1,17 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-01 19:24:39
- * @LastEditTime: 2022-08-02 16:01:40
+ * @LastEditTime: 2022-08-02 23:49:02
 -->
 <template>
   <div class="home-vue">
     <el-container>
       <!-- 侧边栏 -->
       <layout-Aside></layout-Aside>
-      <el-container>
+      <el-container class="container">
         <!-- header 头部 -->
         <layout-Header></layout-Header>
+
         <!-- 内容主体 -->
         <el-main>
           <transition name="main" mode="out-in">
@@ -63,9 +64,15 @@ export default {
   background-color: #03152a;
 }
 ::v-deep .el-main {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   text-align: center;
-  background-color: #48515d;
+  margin: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
 }
 </style>

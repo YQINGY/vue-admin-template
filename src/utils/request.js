@@ -55,7 +55,7 @@ service.interceptors.response.use(response => {
                     break;
                 default:
                     Message({
-                        message: res.message,
+                        message: response.data.message,
                         type: "warning"
                     })
             }

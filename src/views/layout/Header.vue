@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-02 17:52:48
+ * @LastEditTime: 2022-08-02 23:49:19
 -->
 <template>
   <el-header height="110px">
@@ -57,8 +57,12 @@ export default {
     return {
       isCollapse: false,
       routerList: [
-        { title: "主页", path: "/home" },
-        { title: "发表推文", path: "/home" },
+        { title: "主页", path: "/" },
+        { title: "发表推文1", path: "/" },
+        { title: "发表推文2", path: "/" },
+        { title: "发表推文3", path: "/" },
+        { title: "发表推文4", path: "/" },
+        { title: "发表推文5", path: "/" },
       ],
       num: 0,
     };
@@ -69,7 +73,7 @@ export default {
     //   if (index === 0) {
     //     return false;
     //   }
-      this.num = index
+      this.num = index;
       this.rightMenuShow = true;
       this.$store.dispatch("openMenu", item);
     },
@@ -108,16 +112,21 @@ export default {
     }
   }
 }
+
 .header-left {
   width: auto;
+}
+.header-right::-webkit-scrollbar {
+  display: none;
 }
 .header-right {
   display: flex;
   justify-self: start;
-  width: auto;
+  width : auto;
   height: 50px;
   border-top: 1px solid #f6f6f6;
   border-bottom: 1px solid #d8dce5;
+  overflow: scroll;
   .default-tab {
     min-width: 80px;
     height: 36px;
