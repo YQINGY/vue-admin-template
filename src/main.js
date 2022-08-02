@@ -8,7 +8,7 @@ import ElementUI from "element-ui"
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import NProgress from "nprogress"
+// import NProgress from "nprogress"
 
 import "nprogress/nprogress.css"
 import "element-ui/lib/theme-chalk/index.css"
