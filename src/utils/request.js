@@ -68,7 +68,7 @@ service.interceptors.response.use(response => {
     console.log('error', error.response);
     //断网处理或者请求超时
     if (!error.response) {
-        if (error.message.includes("timeout")) {
+        if (error.response.message.includes("timeout")) {
             console.log("超时了");
             Message({
                 message: '请求超时，请检查互联网连接.',

@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-07-23 16:24:07
- * @LastEditTime: 2022-08-01 18:57:04
+ * @LastEditTime: 2022-08-03 14:36:21
 -->
 <template>
     <div class="msg-box">
@@ -57,7 +57,7 @@ export default {
         };
     },
     created() {
-        this.show();
+        // this.show();
     },
     methods: {
         remove(index) {
@@ -84,9 +84,7 @@ export default {
 <style scoped>
 .msg-box {
     width: 100%;
-    height: 100vh;
-    padding: 20px;
-    overflow: auto;
+    height: 100%;
 }
 ::-webkit-scrollbar {
     display: none;

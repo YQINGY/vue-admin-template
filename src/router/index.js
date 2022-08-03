@@ -18,76 +18,90 @@ VueRouter.prototype.push = function push(location) {
 Vue.use(VueRouter)
 
 
-
-const routes = [{
+export const constantRoutes = [{
         path: "/",
         name: 'index',
-        component: Layout,
-        alone: true,
-        children: [{
-            path: "/",
-            iconCls: "fa fa-dashboard", // 图标样式class
-            name: "主页",
-            component: () =>
-                import ('../views/index.vue'),
-            children: []
-        }]
-    },
-    {
-        path: '/competence',
-        name: 'competence',
-        meta: { title: '用户权限' },
         component: () =>
-            import ('../views/userinfo/competence.vue')
-    },
-    {
-        path: '/tweet',
-        name: 'tweet',
-        meta: { title: '发布推文' },
-        component: () =>
-            import ('../views/article/tweet.vue')
-    },
-    {
-        path: '/carousel',
-        name: 'carousel',
-        meta: { title: '轮播广告' },
-        component: () =>
-            import ('../views/article/carousel.vue')
-    },
-    {
-        path: '/msg',
-        name: 'msg',
-        meta: { title: '通知消息' },
-        component: () =>
-            import ('../views/article/msg.vue')
+            import ('../views/index.vue'),
+        meta: {
+            title: '主页',
+        },
+        children: []
     },
     {
         path: '/login',
-        name: 'login',
-        meta: { title: '系统登录' },
+        name: 'Login',
         component: () =>
-            import ('../components/login.vue')
+            import ('@/components/login.vue'),
+        meta: {
+            title: '登录',
+        },
+        hidden: true,
     },
     {
         path: '/register',
-        name: 'register',
-        meta: { title: '注册账号' },
+        name: 'Register',
         component: () =>
-            import ('../components/register.vue')
+            import ('@/components/register.vue'),
+        hidden: true,
     },
     {
         path: '/404',
         name: '404',
-        meta: { title: '404' },
         component: () =>
-            import ('../components/404.vue')
+            import ('@/components/404.vue'),
+        hidden: true,
+    },
+];
+
+
+export const asyncRoutes = [{
+        path: "/",
+        name: 'index',
+        component: Layout,
+        root: true,
+        children: [{
+            path: '/competence',
+            name: 'competence',
+            meta: { title: '用户权限' },
+            component: () =>
+                import ('../views/userinfo/competence.vue')
+        }]
+    },
+    {
+        path: "/",
+        name: 'index',
+        component: Layout,
+        root: true,
+        children: [{
+                path: '/tweet',
+                name: 'tweet',
+                meta: { title: '发布推文' },
+                component: () =>
+                    import ('../views/article/tweet.vue')
+            },
+            {
+                path: '/carousel',
+                name: 'carousel',
+                meta: { title: '轮播广告' },
+                component: () =>
+                    import ('../views/article/carousel.vue')
+            },
+            {
+                path: '/msg',
+                name: 'msg',
+                meta: { title: '通知消息' },
+                component: () =>
+                    import ('../views/index.vue'),
+            }
+        ]
     }
 ]
 
 const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes
+    routes: constantRoutes
 })
 
 export default router

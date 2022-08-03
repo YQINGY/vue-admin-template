@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-07-25 21:17:02
- * @LastEditTime: 2022-08-01 18:57:46
+ * @LastEditTime: 2022-08-03 09:53:18
 -->
 <template>
     <div class="competence-box">
@@ -172,8 +172,8 @@ export default {
 
 <style scoped>
 .competence-box {
-    width: 100%;
-    height: 100vh;
+    width: auto;
+    height: auto;
     padding: 20px;
 }
 </style>

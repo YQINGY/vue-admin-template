@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-02 23:49:19
+ * @LastEditTime: 2022-08-03 09:25:13
 -->
 <template>
   <el-header height="110px">
@@ -58,11 +58,10 @@ export default {
       isCollapse: false,
       routerList: [
         { title: "主页", path: "/" },
-        { title: "发表推文1", path: "/" },
-        { title: "发表推文2", path: "/" },
-        { title: "发表推文3", path: "/" },
-        { title: "发表推文4", path: "/" },
-        { title: "发表推文5", path: "/" },
+        { title: "用户权限", path: "/competence" },
+        { title: "发布推文", path: "/tweet" },
+        { title: "轮播广告", path: "/carousel" },
+        { title: "通知消息", path: "/msg" }
       ],
       num: 0,
     };

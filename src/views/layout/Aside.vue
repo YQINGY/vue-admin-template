@@ -1,15 +1,16 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-02 23:52:33
+ * @LastEditTime: 2022-08-03 15:08:26
 -->
 <template>
   <el-aside width="auto">
     <div class="logo-name">
       <p v-if="$store.state.logoShow"><i class="el-icon-monitor" /></p>
-      <p v-else><i class="el-icon-monitor" />   后台管理系统</p>
+      <p v-else><i class="el-icon-monitor" /> 后台管理系统</p>
     </div>
     <el-menu
+      router
       :default-active="$route.path"
       class="el-menu-vertical"
       background-color="#03152A"
@@ -18,31 +19,20 @@
       @select="selectmenu"
       :collapse-transition="true"
     >
-      <el-submenu index="1">
-        <template slot="title">
-          <i class="el-icon-s-promotion"></i>
-          <span slot="title">测试1</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="1-1">
-            <i class="el-icon-s-promotion"></i>选项1</el-menu-item
-          >
-          <el-menu-item index="1-2">
-            <i class="el-icon-s-promotion"></i>选项2</el-menu-item
-          >
-        </el-menu-item-group>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-s-marketing"></i>
-          <span slot="title">测试2</span>
-        </template>
-        <el-menu-item-group>
-          <el-menu-item index="2-1">
-            <i class="el-icon-s-promotion"></i>选项3</el-menu-item
-          >
-        </el-menu-item-group>
-      </el-submenu>
+      <template v-for="(item, i) in addRouter">
+        <el-submenu :index="String(i)">
+          <template slot="title">
+            <i :class="item.iconCls"></i>
+            <span slot="title">{{ item.name }}</span>
+          </template>
+          <el-menu-item-group v-for="(citem, k) in item.children" :key="k">
+            <el-menu-item :index="citem.path">
+              <i :class="citem.iconCls" />
+              {{ citem.name }}
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-submenu>
+      </template>
     </el-menu>
   </el-aside>
 </template>
@@ -51,7 +41,46 @@
 export default {
   name: "layoutAside",
   data() {
-    return {};
+    return {
+      addRouter: [
+        {
+          path: "/",
+          iconCls: "el-icon-tickets", // 图标样式class
+          name: "推文管理",
+          children: [
+            {
+              path: "/tweet",
+              iconCls: "el-icon-edit-outline", // 图标样式class
+              name: "发表推文",
+              component: "",
+              children: [],
+            },
+            {
+              path: "/carousel",
+              iconCls: "el-icon-edit-outline", // 图标样式class
+              name: "轮播广告",
+              component: "",
+              children: [],
+            },
+          ],
+        },
+        {
+          path: "/",
+          iconCls: "el-icon-platform-eleme", // 图标样式class
+          name: "Element-UI",
+          component: "",
+          children: [
+            {
+              path: "/",
+              iconCls: "el-icon-eleme", // 图标样式class
+              name: "图标ICON",
+              component: "",
+              children: [],
+            },
+          ],
+        },
+      ],
+    };
   },
   watch: {
     // 监听浏览器直接输入路由，将此路由添加到tabnavBox
@@ -97,7 +126,7 @@ export default {
   font-size: 15px;
   .el-icon-monitor {
     font-size: 22px;
-  font-weight: bold;
+    font-weight: bold;
   }
 }
 .el-menu-vertical:not(.el-menu--collapse) {
@@ -109,5 +138,17 @@ export default {
 }
 ::v-deep .el-submenu__title {
   text-align: left;
+}
+
+.router-link-active {
+  color: #1c8cff;
+}
+a {
+  font-weight: 400;
+  color: #999;
+  text-decoration: none;
+}
+a:active {
+  color: red; /*已访问的链接颜色*/
 }
 </style>

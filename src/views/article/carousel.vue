@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-07-25 21:14:08
- * @LastEditTime: 2022-08-01 18:58:01
+ * @LastEditTime: 2022-08-03 14:39:29
 -->
 <template>
     <div class="carousel-box">
@@ -58,7 +58,7 @@ export default {
         };
     },
     created() {
-        this.queryAll();
+        // this.queryAll();
     },
     methods: {
         remove(index) {
@@ -120,7 +120,6 @@ export default {
 .carousel-box {
     width: 100%;
     height: 100%;
-    padding: 20px;
     overflow: auto;
 }
 ::-webkit-scrollbar {
