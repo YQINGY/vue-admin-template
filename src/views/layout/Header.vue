@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-03 09:25:13
+ * @LastEditTime: 2022-08-03 23:51:17
 -->
 <template>
   <el-header height="110px">
@@ -42,9 +42,13 @@
         :key="index"
       >
         <span @click="openMenu(item, index)">
-          <router-link :to="item.path">{{ item.title }}</router-link>
+          <router-link :to="item.path">{{ item.meta.title }}</router-link>
         </span>
-        <i class="el-icon-circle-close" @click="removeTab(item.title)"></i>
+        <i
+          v-if="item.meta.title != '主页'"
+          class="el-icon-circle-close"
+          @click="removeTab(item)"
+        ></i>
       </div>
     </div>
   </el-header>
@@ -57,11 +61,18 @@ export default {
     return {
       isCollapse: false,
       routerList: [
-        { title: "主页", path: "/" },
-        { title: "用户权限", path: "/competence" },
-        { title: "发布推文", path: "/tweet" },
-        { title: "轮播广告", path: "/carousel" },
-        { title: "通知消息", path: "/msg" }
+        {
+          path: "/",
+          name: "index",
+          icon: "",
+          meta: { title: "主页" },
+        },
+        {
+          path: "/tweet",
+          name: "tweet",
+          icon: "el-icon-tickets",
+          meta: { title: "发布推文" },
+        }
       ],
       num: 0,
     };
@@ -69,12 +80,13 @@ export default {
   watch: {},
   methods: {
     openMenu(item, index) {
-    //   if (index === 0) {
-    //     return false;
-    //   }
+      //   if (index === 0) {
+      //     return false;
+      //   }
+      console.log(item);
       this.num = index;
       this.rightMenuShow = true;
-      this.$store.dispatch("openMenu", item);
+      // this.$store.dispatch("openMenu", item);
     },
     removeTab(title) {
       console.log(title);
@@ -121,7 +133,7 @@ export default {
 .header-right {
   display: flex;
   justify-self: start;
-  width : auto;
+  width: auto;
   height: 50px;
   border-top: 1px solid #f6f6f6;
   border-bottom: 1px solid #d8dce5;

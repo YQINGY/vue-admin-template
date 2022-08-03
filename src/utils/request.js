@@ -8,7 +8,7 @@ import router from '@/router'
 import NProgress from "nprogress"
 import { Message } from "element-ui"
 import store from '@/store'
-import { getUserInfo } from '@/utils/auth'
+import { getUserInfo } from '@/utils/cookies'
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,

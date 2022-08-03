@@ -21,12 +21,17 @@ Vue.use(VueRouter)
 export const constantRoutes = [{
         path: "/",
         name: 'index',
-        component: () =>
-            import ('../views/index.vue'),
-        meta: {
-            title: '主页',
-        },
-        children: []
+        component: Layout,
+        root: true,
+        meta: { title: '主页' },
+        children: [{
+            path: '/',
+            name: 'index',
+            icon: '',
+            meta: { title: '主页' },
+            component: () =>
+                import ('@/views/index.vue'),
+        }]
     },
     {
         path: '/login',
@@ -56,43 +61,45 @@ export const constantRoutes = [{
 
 
 export const asyncRoutes = [{
-        path: "/",
-        name: 'index',
-        component: Layout,
+        title: '用户管理',
+        icon: 'el-icon-eleme"',
         root: true,
         children: [{
             path: '/competence',
             name: 'competence',
+            icon: 'el-icon-eleme"',
             meta: { title: '用户权限' },
             component: () =>
-                import ('../views/userinfo/competence.vue')
+                import ('@/views/userinfo/competence.vue')
         }]
     },
     {
-        path: "/",
-        name: 'index',
-        component: Layout,
+        title: '文章管理',
+        icon: 'el-icon-tickets',
         root: true,
         children: [{
                 path: '/tweet',
                 name: 'tweet',
+                icon: 'el-icon-tickets',
                 meta: { title: '发布推文' },
                 component: () =>
-                    import ('../views/article/tweet.vue')
+                    import ('@/views/article/tweet.vue')
             },
             {
                 path: '/carousel',
                 name: 'carousel',
+                icon: 'el-icon-tickets',
                 meta: { title: '轮播广告' },
                 component: () =>
-                    import ('../views/article/carousel.vue')
+                    import ('@/views/article/carousel.vue')
             },
             {
                 path: '/msg',
                 name: 'msg',
+                icon: 'el-icon-tickets',
                 meta: { title: '通知消息' },
                 component: () =>
-                    import ('../views/index.vue'),
+                    import ('@/views/index.vue'),
             }
         ]
     }

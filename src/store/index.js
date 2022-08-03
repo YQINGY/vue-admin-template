@@ -5,7 +5,8 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getUserInfo, setUserInfo, removeUserInfo } from '@/utils/auth'
+import { getUserInfo } from '@/utils/cookies'
+import { authorityRouting, dropDownList } from '@/utils'
 
 Vue.use(Vuex)
 
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
         userInfo: getUserInfo() || null,
         isCollapse: false,
         logoShow: false,
+        asideMenu: [],
+        haderTabs: []
+
     },
     mutations: {
         SET_USERINFO: (state, userInfo) => {

@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-03 15:08:26
+ * @LastEditTime: 2022-08-03 22:55:19
 -->
 <template>
   <el-aside width="auto">
@@ -22,12 +22,12 @@
       <template v-for="(item, i) in addRouter">
         <el-submenu :index="String(i)">
           <template slot="title">
-            <i :class="item.iconCls"></i>
-            <span slot="title">{{ item.name }}</span>
+            <i :class="item.icon"></i>
+            <span slot="title">{{ item.title }}</span>
           </template>
           <el-menu-item-group v-for="(citem, k) in item.children" :key="k">
             <el-menu-item :index="citem.path">
-              <i :class="citem.iconCls" />
+              <i :class="citem.icon" />
               {{ citem.name }}
             </el-menu-item>
           </el-menu-item-group>
@@ -44,36 +44,34 @@ export default {
     return {
       addRouter: [
         {
-          path: "/",
-          iconCls: "el-icon-tickets", // 图标样式class
-          name: "推文管理",
+          icon: "el-icon-platform-eleme", // 图标样式class
+          title: "主页",
+          component: "",
           children: [
             {
-              path: "/tweet",
-              iconCls: "el-icon-edit-outline", // 图标样式class
-              name: "发表推文",
-              component: "",
-              children: [],
-            },
-            {
-              path: "/carousel",
-              iconCls: "el-icon-edit-outline", // 图标样式class
-              name: "轮播广告",
+              path: "/",
+              icon: "el-icon-eleme", // 图标样式class
+              name: "图标ICON",
               component: "",
               children: [],
             },
           ],
         },
         {
-          path: "/",
-          iconCls: "el-icon-platform-eleme", // 图标样式class
-          name: "Element-UI",
-          component: "",
+          icon: "el-icon-tickets", // 图标样式class
+          title: "推文管理",
           children: [
             {
-              path: "/",
-              iconCls: "el-icon-eleme", // 图标样式class
-              name: "图标ICON",
+              path: "/tweet",
+              icon: "el-icon-edit-outline", // 图标样式class
+              name: "发表推文",
+              component: "",
+              children: [],
+            },
+            {
+              path: "/carousel",
+              icon: "el-icon-edit-outline", // 图标样式class
+              name: "轮播广告",
               component: "",
               children: [],
             },

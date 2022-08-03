@@ -12,7 +12,7 @@ export function getUserInfo() {
 }
 
 export function setUserInfo(userInfo) {
-    return Cookies.set(UserKey, userInfo)
+    return Cookies.set(UserKey, JSON.stringify(userInfo))
 }
 
 export function removeUserInfo() {
