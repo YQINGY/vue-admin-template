@@ -1,13 +1,14 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-unused-vars */
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 16:58:19
- * @LastEditTime: 2022-08-04 18:04:18
+ * @LastEditTime: 2022-08-05 00:08:59
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { getUserInfo, getHaderTabs, setHaderTabs } from '@/utils/cookies'
-import { authorityRouting, dropDownList } from '@/utils'
+import { authorityRouting, dropDownList, unique } from '@/utils'
 
 Vue.use(Vuex)
 
@@ -17,8 +18,9 @@ const store = new Vuex.Store({
         isCollapse: false,
         logoShow: false,
         asideMenu: [],
-        haderTabs: getHaderTabs() || [{
+        haderTabs: [{
             path: "/",
+            checked: true,
             meta: { title: "主页" },
         }]
 
@@ -38,8 +40,29 @@ const store = new Vuex.Store({
             }
         },
         SET_HADERTABS: (state, data) => {
-            state.haderTabs.push(data)
-            setHaderTabs(state.haderTabs)
+            console.log('----data----', data)
+            let List = state.haderTabs
+            let result;
+            for (let index = 0; index < List.length; index++) {
+                if (List[index].path != data.path) {
+                    List.push(data)
+                    List[index].checked = false
+                }
+            }
+            result = new Set(List)
+            state.haderTabs = result
+                // List.forEach(e => {
+                //     if (data.path == e.path) {
+                //         console.log('有重复', e)
+                //         e.checked = false
+                //     } else {
+                //         console.log('没有重复', e)
+                //         List.push(data)
+                //     }
+                // });
+                // Array.from(new Set(List))
+                // state.haderTabs = Array.from(new Set(List))
+                // console.log(state.haderTabs)
         }
     },
     actions: {},

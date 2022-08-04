@@ -2,7 +2,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-04 17:59:08
+ * @LastEditTime: 2022-08-04 23:08:15
 -->
 <template>
   <el-aside width="auto">
@@ -89,20 +89,19 @@ export default {
   },
   methods: {
     selectmenu(key) {
-      let obj = {
-        path: '',
-        meta: { title: "" },
-      };
+      let obj;
       this.addRouter.forEach((e) => {
         e.children.forEach((v) => {
           if (v.path == key) {
-            console.log(v.path)
-            obj.path = key
-            obj.meta.title = v.name
+            obj = {
+              path: key,
+              checked: true,
+              meta: { title: v.name },
+            };
           }
         });
-      })
-      this.$store.commit('SET_HADERTABS',obj)
+      });
+      this.$store.commit("SET_HADERTABS", obj);
     },
   },
 };

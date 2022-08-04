@@ -12,7 +12,7 @@ export function getUserInfo() {
 }
 
 export function setUserInfo(userInfo) {
-    return Cookies.set(UserKey, JSON.stringify(userInfo))
+    return Cookies.set(UserKey, userInfo)
 }
 
 export function removeUserInfo() {
@@ -24,7 +24,7 @@ export function getHaderTabs() {
 }
 
 export function setHaderTabs(haderTabs) {
-    return Cookies.set("haderTabs", JSON.stringify(haderTabs))
+    return Cookies.set("haderTabs", haderTabs)
 }
 
 export function removeHaderTabs() {

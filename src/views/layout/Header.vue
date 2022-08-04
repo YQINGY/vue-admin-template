@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-04 17:13:12
+ * @LastEditTime: 2022-08-04 22:00:55
 -->
 <template>
   <el-header height="110px">
@@ -37,8 +37,8 @@
     </div>
     <div class="header-right">
       <div
-        :class="num == index ? 'active-tab' : 'default-tab'"
-        v-for="(item, index) in routerList"
+        :class="item.checked ? 'active-tab' : 'default-tab'"
+        v-for="(item, index) in $store.state.haderTabs"
         :key="index"
       >
         <span @click="openMenu(item, index)">
@@ -60,20 +60,18 @@ export default {
   data() {
     return {
       isCollapse: false,
-      routerList: this.$store.state.haderTabs,
       num: 0,
     };
   },
-  watch: {},
+  watch:{
+		'$store.state.haderTabs':function(newVal,oldVal){
+			// console.log(newVal,oldVal)
+		}
+	},
   methods: {
     openMenu(item, index) {
-      //   if (index === 0) {
-      //     return false;
-      //   }
-      console.log(item);
       this.num = index;
       this.rightMenuShow = true;
-      // this.$store.dispatch("openMenu", item);
     },
     removeTab(index) {
       this.routerList.splice(index, 1);
