@@ -1,15 +1,33 @@
+/* eslint-disable no-unused-vars */
 /*
  * @Autor: yqy
  * @Date: 2022-08-03 19:12:26
- * @LastEditTime: 2022-08-03 21:03:39
+ * @LastEditTime: 2022-08-04 17:46:05
  */
-import router from './router'
-import { asyncRoutes, constantRoutes } from './router'
+import router, { createRouter, originalRouter, addRouter } from './router'
 // import store from './store'
 import NProgress from 'nprogress' // Progress 进度条
-import { getUserInfo, setUserInfo } from '@/utils/cookies' // 验权
+import { getUserInfo } from '@/utils/cookies' // 验权
+import { authorityRouting } from '@/utils/index'
 
-setUserInfo({ 'name': 'yqy223333' })
+
+
+// console.log(router.options.routes)
+
+
+// 路由全局拦截
+router.beforeEach(async(to, from, next) => {
+    // NProgress.start() // 开启Progress
+    document.title = 'vue-admin-template ' + to.meta.title;
+    router.matcher = createRouter().matcher;
+    // 处理用户权限的路由表
+    // router.options.routes[0].children = authorityRouting(addRouter)
+    // router.addRoutes(router.options.routes)
+    // next({ path: to.path })
+    next()
+})
+
+
 
 // register global progress.
 // const whiteList = ['/login', '/register'] // 不重定向白名单
@@ -34,6 +52,6 @@ setUserInfo({ 'name': 'yqy223333' })
 //     }
 // })
 
-// router.afterEach(() => {
-//     NProgress.done() // 结束Progress
-// })
+router.afterEach(() => {
+    // NProgress.done() // 结束Progress
+})

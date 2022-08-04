@@ -1,7 +1,8 @@
+<!-- eslint-disable vue/valid-v-for -->
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-03 22:55:19
+ * @LastEditTime: 2022-08-04 17:59:08
 -->
 <template>
   <el-aside width="auto">
@@ -45,13 +46,13 @@ export default {
       addRouter: [
         {
           icon: "el-icon-platform-eleme", // 图标样式class
-          title: "主页",
+          title: "用户管理",
           component: "",
           children: [
             {
-              path: "/",
+              path: "/competence",
               icon: "el-icon-eleme", // 图标样式class
-              name: "图标ICON",
+              name: "用户权限",
               component: "",
               children: [],
             },
@@ -82,36 +83,26 @@ export default {
   },
   watch: {
     // 监听浏览器直接输入路由，将此路由添加到tabnavBox
-    "$route.path": function (val) {
-      this.selectmenu(val);
-    },
+    // "$route.path": function (val) {
+    //   this.selectmenu(val);
+    // },
   },
   methods: {
     selectmenu(key) {
-      console.log(key);
-      // 如果不使用 elemenUI 菜单的 vue-router 的模式将用以下方式进行页面跳转 el-menu的router设置为false
-      // this.$router.push(indexpath.join("/"))
-      // let router = this.$store.getters.routers;
-      // let name = "";
-      // let navTitle = function (path, routerARR) {
-      //   for (let i = 0; i < routerARR.length; i++) {
-      //     if (routerARR[i].children.length > 0 || routerARR[i].path === path) {
-      //       if (
-      //         routerARR[i].path === path &&
-      //         routerARR[i].children.length < 1
-      //       ) {
-      //         name = routerARR[i].name;
-      //         break;
-      //       }
-      //       navTitle(path, routerARR[i].children);
-      //     }
-      //   }
-      //   return name;
-      // };
-      // this.$store.dispatch("addTab", {
-      //   title: navTitle(key, router),
-      //   path: key,
-      // });
+      let obj = {
+        path: '',
+        meta: { title: "" },
+      };
+      this.addRouter.forEach((e) => {
+        e.children.forEach((v) => {
+          if (v.path == key) {
+            console.log(v.path)
+            obj.path = key
+            obj.meta.title = v.name
+          }
+        });
+      })
+      this.$store.commit('SET_HADERTABS',obj)
     },
   },
 };

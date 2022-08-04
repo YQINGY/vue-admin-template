@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-01 19:24:39
- * @LastEditTime: 2022-08-02 23:49:02
+ * @LastEditTime: 2022-08-04 09:08:36
 -->
 <template>
   <div class="home-vue">
@@ -11,7 +11,6 @@
       <el-container class="container">
         <!-- header 头部 -->
         <layout-Header></layout-Header>
-
         <!-- 内容主体 -->
         <el-main>
           <transition name="main" mode="out-in">

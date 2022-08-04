@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-03 23:51:17
+ * @LastEditTime: 2022-08-04 17:13:12
 -->
 <template>
   <el-header height="110px">
@@ -47,7 +47,7 @@
         <i
           v-if="item.meta.title != '主页'"
           class="el-icon-circle-close"
-          @click="removeTab(item)"
+          @click="removeTab(index)"
         ></i>
       </div>
     </div>
@@ -60,20 +60,7 @@ export default {
   data() {
     return {
       isCollapse: false,
-      routerList: [
-        {
-          path: "/",
-          name: "index",
-          icon: "",
-          meta: { title: "主页" },
-        },
-        {
-          path: "/tweet",
-          name: "tweet",
-          icon: "el-icon-tickets",
-          meta: { title: "发布推文" },
-        }
-      ],
+      routerList: this.$store.state.haderTabs,
       num: 0,
     };
   },
@@ -88,8 +75,10 @@ export default {
       this.rightMenuShow = true;
       // this.$store.dispatch("openMenu", item);
     },
-    removeTab(title) {
-      console.log(title);
+    removeTab(index) {
+      this.routerList.splice(index, 1);
+      console.log(this.routerList);
+      return this.routerList;
     },
   },
 };

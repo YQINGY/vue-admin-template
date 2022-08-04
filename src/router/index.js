@@ -1,66 +1,101 @@
+/* eslint-disable no-undef */
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 18:49:54
- * @LastEditTime: 2022-08-01 19:02:35
+ * @LastEditTime: 2022-08-04 17:21:07
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Layout from "@/views/layout/Layout"
 
-/**
- * 重写路由的push方法
- */
-const routerPush = VueRouter.prototype.push
-VueRouter.prototype.push = function push(location) {
-    return routerPush.call(this, location).catch(error => error)
-}
 
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push
+    // 修改 原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 
-export const constantRoutes = [{
+export const originalRouter = [{
         path: "/",
         name: 'index',
         component: Layout,
         root: true,
-        meta: { title: '主页' },
+        meta: { title: '' },
         children: [{
-            path: '/',
-            name: 'index',
-            icon: '',
-            meta: { title: '主页' },
-            component: () =>
-                import ('@/views/index.vue'),
-        }]
+                path: '/',
+                name: 'index',
+                icon: 'el-icon-eleme"',
+                meta: { title: '主页' },
+                component: () =>
+                    import ('@/views/index.vue')
+            },
+            {
+                path: '/competence',
+                name: 'competence',
+                icon: 'el-icon-eleme"',
+                meta: { title: '用户权限' },
+                component: () =>
+                    import ('@/views/userinfo/competence.vue')
+            },
+            {
+                path: '/tweet',
+                name: 'tweet',
+                icon: 'el-icon-tickets',
+                meta: { title: '发布推文' },
+                component: () =>
+                    import ('@/views/article/tweet.vue')
+            },
+            {
+                path: '/carousel',
+                name: 'carousel',
+                icon: 'el-icon-tickets',
+                meta: { title: '轮播广告' },
+                component: () =>
+                    import ('@/views/article/carousel.vue')
+            },
+            {
+                path: '/msg',
+                name: 'msg',
+                icon: 'el-icon-tickets',
+                meta: { title: '通知消息' },
+                component: () =>
+                    import ('@/views/index.vue'),
+            }
+        ]
     },
     {
         path: '/login',
         name: 'Login',
-        component: () =>
-            import ('@/components/login.vue'),
         meta: {
             title: '登录',
         },
-        hidden: true,
+        component: () =>
+            import ('@/components/login.vue')
     },
     {
         path: '/register',
         name: 'Register',
+        meta: {
+            title: '注册',
+        },
         component: () =>
-            import ('@/components/register.vue'),
-        hidden: true,
+            import ('@/components/register.vue')
     },
     {
         path: '/404',
         name: '404',
+        meta: {
+            title: '404',
+        },
         component: () =>
-            import ('@/components/404.vue'),
-        hidden: true,
+            import ('@/components/404.vue')
     },
 ];
 
 
-export const asyncRoutes = [{
+export const addRouter = [{
         title: '用户管理',
         icon: 'el-icon-eleme"',
         root: true,
@@ -105,10 +140,11 @@ export const asyncRoutes = [{
     }
 ]
 
-const router = new VueRouter({
+export const createRouter = () => new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
-    routes: constantRoutes
+    routes: originalRouter
 })
+const router = createRouter()
 
 export default router
