@@ -2,7 +2,7 @@
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 18:49:54
- * @LastEditTime: 2022-08-04 17:21:07
+ * @LastEditTime: 2022-08-05 17:54:36
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -19,51 +19,8 @@ VueRouter.prototype.push = function push(location) {
 
 export const originalRouter = [{
         path: "/",
-        name: 'index',
-        component: Layout,
-        root: true,
-        meta: { title: '' },
-        children: [{
-                path: '/',
-                name: 'index',
-                icon: 'el-icon-eleme"',
-                meta: { title: '主页' },
-                component: () =>
-                    import ('@/views/index.vue')
-            },
-            {
-                path: '/competence',
-                name: 'competence',
-                icon: 'el-icon-eleme"',
-                meta: { title: '用户权限' },
-                component: () =>
-                    import ('@/views/userinfo/competence.vue')
-            },
-            {
-                path: '/tweet',
-                name: 'tweet',
-                icon: 'el-icon-tickets',
-                meta: { title: '发布推文' },
-                component: () =>
-                    import ('@/views/article/tweet.vue')
-            },
-            {
-                path: '/carousel',
-                name: 'carousel',
-                icon: 'el-icon-tickets',
-                meta: { title: '轮播广告' },
-                component: () =>
-                    import ('@/views/article/carousel.vue')
-            },
-            {
-                path: '/msg',
-                name: 'msg',
-                icon: 'el-icon-tickets',
-                meta: { title: '通知消息' },
-                component: () =>
-                    import ('@/views/index.vue'),
-            }
-        ]
+        redirect: "/index",
+        children: []
     },
     {
         path: '/login',
@@ -91,9 +48,15 @@ export const originalRouter = [{
         },
         component: () =>
             import ('@/components/404.vue')
-    },
+    }
 ];
-
+export const mainRouter = [{
+    path: "/",
+    component: Layout,
+    root: true,
+    meta: { title: '主页' },
+    children: []
+}, ]
 
 export const addRouter = [{
         title: '用户管理',

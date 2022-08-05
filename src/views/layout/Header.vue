@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-04 22:00:55
+ * @LastEditTime: 2022-08-05 15:12:05
 -->
 <template>
   <el-header height="110px">
@@ -47,7 +47,7 @@
         <i
           v-if="item.meta.title != '主页'"
           class="el-icon-circle-close"
-          @click="removeTab(index)"
+          @click="removeTab(item,index)"
         ></i>
       </div>
     </div>
@@ -65,18 +65,16 @@ export default {
   },
   watch:{
 		'$store.state.haderTabs':function(newVal,oldVal){
-			// console.log(newVal,oldVal)
+			console.log(newVal,oldVal)
 		}
 	},
   methods: {
-    openMenu(item, index) {
-      this.num = index;
-      this.rightMenuShow = true;
+    openMenu(item) {
+      this.$store.commit('UPDATA_TABSTYPE',item)
     },
-    removeTab(index) {
-      this.routerList.splice(index, 1);
-      console.log(this.routerList);
-      return this.routerList;
+    removeTab(item,index) {
+      console.log('-----------',item,index)
+      this.$store.dispatch('asyncDeleTbas',{item, index})
     },
   },
 };

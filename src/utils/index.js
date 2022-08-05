@@ -1,17 +1,20 @@
 /*
  * @Autor: yqy
  * @Date: 2022-08-03 23:14:56
- * @LastEditTime: 2022-08-04 17:06:18
+ * @LastEditTime: 2022-08-05 17:18:38
  */
 // 处理权限路由
-export function authorityRouting(addRouter) {
-    let originalRouter = []
+
+export function authorityRouting(mainRouter, addRouter) {
+    const originalRouter = []
     addRouter.forEach(e => {
         if (e.root) {
             originalRouter.push(...e.children)
         }
     });
-    return originalRouter;
+    mainRouter[0].children = originalRouter
+    mainRouter.push({ path: '*', redirect: '/404' }, )
+    return mainRouter;
 }
 
 // 处理下拉列表路由
@@ -26,16 +29,14 @@ export function dropDownList(routerList) {
 }
 
 //数组去重
-export function unique(arr) {
-    let map = new Map();
-    let array = new Array(); // 数组用于返回结果
-    for (let i = 0; i < arr.length; i++) {
-        if (map.has(arr[i])) { // 如果有该key值
-            map.set(arr[i], true);
-        } else {
-            map.set(arr[i], false); // 如果没有该key值
-            array.push(arr[i]);
+export function deduplication(Array) {
+    let newArr = [];
+    let arrpath = [];
+    for (var item of Array) {
+        if (arrpath.indexOf(item['path']) == -1) {
+            arrpath.push(item['path']);
+            newArr.push(item);
         }
     }
-    return array;
+    return newArr;
 }

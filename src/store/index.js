@@ -3,12 +3,13 @@
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 16:58:19
- * @LastEditTime: 2022-08-05 00:08:59
+ * @LastEditTime: 2022-08-05 15:23:58
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { getUserInfo, getHaderTabs, setHaderTabs } from '@/utils/cookies'
-import { authorityRouting, dropDownList, unique } from '@/utils'
+import router from '@/router'
+import { getUserInfo, getHaderTabs, setHaderTabs } from '@/utils/storage'
+import { deduplication } from '@/utils'
 
 Vue.use(Vuex)
 
@@ -18,7 +19,7 @@ const store = new Vuex.Store({
         isCollapse: false,
         logoShow: false,
         asideMenu: [],
-        haderTabs: [{
+        haderTabs: getHaderTabs() || [{
             path: "/",
             checked: true,
             meta: { title: "主页" },
@@ -40,32 +41,44 @@ const store = new Vuex.Store({
             }
         },
         SET_HADERTABS: (state, data) => {
-            console.log('----data----', data)
-            let List = state.haderTabs
-            let result;
+            let List = state.haderTabs;
+            List.push(data);
+            let newList = deduplication(List);
+            newList.forEach(item => {
+                if (item.path != data.path) item.checked = false;
+                else item.checked = true;
+            });
+            setHaderTabs(newList)
+            state.haderTabs = newList;
+        },
+        DEL_TBAS: (state, param) => {
+            let List = state.haderTabs;
+            List.splice(param.index, 1);
+            if (!param.checked) {
+                router.push({ path: List[List.length - 1].path });
+                List[List.length - 1].checked = true;
+            }
+            setHaderTabs(List);
+            state.haderTabs = List;
+        },
+        UPDATA_TABSTYPE: (state, param) => {
+            let List = state.haderTabs;
             for (let index = 0; index < List.length; index++) {
-                if (List[index].path != data.path) {
-                    List.push(data)
+                if (List[index].meta.title == param.meta.title) {
+                    List[index].checked = true
+                } else {
                     List[index].checked = false
                 }
             }
-            result = new Set(List)
-            state.haderTabs = result
-                // List.forEach(e => {
-                //     if (data.path == e.path) {
-                //         console.log('有重复', e)
-                //         e.checked = false
-                //     } else {
-                //         console.log('没有重复', e)
-                //         List.push(data)
-                //     }
-                // });
-                // Array.from(new Set(List))
-                // state.haderTabs = Array.from(new Set(List))
-                // console.log(state.haderTabs)
+            setHaderTabs(List);
+            state.haderTabs = List
         }
     },
-    actions: {},
+    actions: {
+        asyncDeleTbas(context, param) {
+            setTimeout(() => { context.commit('DEL_TBAS', param) }, 300)
+        }
+    },
     modules: {}
 })
 
