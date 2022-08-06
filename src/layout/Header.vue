@@ -149,9 +149,8 @@ export default {
   border-bottom: 1px solid #d8dce5;
   border: 1px solid #f6f6f6;
   white-space: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  text-overflow:ellipsis;
+  overflow: hidden;
+  overflow-x: auto;
   .default-tab {
     min-width: 90px;
     height: 36px;
