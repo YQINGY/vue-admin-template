@@ -100,6 +100,7 @@ export default {
         background: "rgba(0, 0, 0, 0.8)",
       });
       setTimeout(() => {
+        location.reload()
         loading.close();
         this.$router.push({ path: "/login", replace: true });
       }, 500);
