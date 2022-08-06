@@ -1,10 +1,10 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-06 15:17:25
+ * @LastEditTime: 2022-08-06 20:15:09
 -->
 <template>
-  <el-header height="110px">
+  <el-header height="115px">
     <div class="header-content">
       <div class="header-left">
         <i
@@ -15,11 +15,11 @@
         ></i>
       </div>
       <div>
-        <p>{{ userInfo.root ? "管理员" : "普通用户" }}</p>
+        <p>{{ userInfo.roleId == 0 ? "管理员" : "普通用户" }}</p>
         <p>
           <el-dropdown>
             <span class="el-dropdown-link">
-              {{ userInfo.name
+              {{ userInfo.username
               }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -31,11 +31,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </p>
-        <img
-          class="user-logo"
-          src="../assets/image/avatar.jpg"
-          alt="用户头像"
-        />
+        <img class="user-logo" :src="userInfo.avatar" alt="用户头像" />
       </div>
     </div>
     <div class="header-right">
@@ -75,7 +71,7 @@ export default {
   },
   watch: {
     windowWidth(val) {
-      if( val < 950)this.$store.commit('SET_COLLAPSE',true);
+      if (val < 950) this.$store.commit("SET_COLLAPSE", true);
     },
   },
   mounted() {
@@ -127,7 +123,7 @@ export default {
     width: auto;
     justify-content: space-around;
     p {
-      padding: 3.5px 5px;
+      padding: 5px;
       font-size: 14px;
       color: #606266;
     }
@@ -144,19 +140,20 @@ export default {
 .header-left {
   width: auto;
 }
-.header-right::-webkit-scrollbar {
-  display: none;
-}
 .header-right {
   display: flex;
   justify-self: start;
-  width: auto;
-  height: 50px;
+  min-width: auto;
+  height: 55px;
   border-top: 1px solid #f6f6f6;
   border-bottom: 1px solid #d8dce5;
-  overflow: scroll;
+  border: 1px solid #f6f6f6;
+  white-space: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  text-overflow:ellipsis;
   .default-tab {
-    min-width: 80px;
+    min-width: 90px;
     height: 36px;
     margin: 6px 5px;
     padding: 0 10px;
@@ -164,10 +161,10 @@ export default {
     font-size: 14px;
     text-align: center;
     transition: all 0.5s;
-    border: 1px solid #d8dce5;
+    border: .5px solid #d8dce5;
   }
   .active-tab {
-    min-width: 80px;
+    min-width: 90px;
     height: 36px;
     margin: 6px 5px;
     padding: 0 10px;
@@ -176,7 +173,7 @@ export default {
     text-align: center;
     transition: all 0.5s;
     background: #378fec;
-    border: 1px solid #378fec;
+    border: .5px solid #378fec;
     a {
       transition: all 0.5s;
       font-weight: 400;
@@ -198,5 +195,27 @@ a {
   font-weight: 400;
   color: #999;
   text-decoration: none;
+}
+
+
+/*定义滚动条高宽及背景 高宽分别对应横竖滚动条的尺寸*/
+.header-right::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+/*定义滚动条轨道 内阴影+圆角*/
+.header-right::-webkit-scrollbar-track {
+  width: 90%;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  border-radius:50px;
+  background-color: rgb(211, 209, 209);
+}
+/*定义滑块 内阴影+圆角*/
+.header-right::-webkit-scrollbar-thumb {
+  border-radius:50px;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+  background-color: #6896f2;
 }
 </style>
