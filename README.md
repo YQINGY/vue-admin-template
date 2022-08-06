@@ -33,9 +33,9 @@
       |-- utils               // 封装工具类
          |-- request.js       // 封装axios请求
          |-- storage.js       // 封装浏览器缓存数据
-        |-- userinfo
+         |-- userinfo
             |-- competence.vue
-        |-- article
+         |-- article
             |-- tweet.vue
             |-- msg.vue
 
@@ -70,7 +70,7 @@
 * 利用`axios`拦截器 实现了`ajax`请求前展示`loading` 请求结束关闭`loading`
 
 ### 注意
-* 查看源码 可以自行更改
+* clone源代码 可以自行更改
 
 功能都不太丰富了 写了这么一个最基础的 只写框架搭建必要功能的模板，提供大家学习与搭建后台管理模板
 
