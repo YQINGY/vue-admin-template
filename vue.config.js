@@ -1,7 +1,7 @@
 /*
  * @Autor: yqy
  * @Date: 2022-07-25 09:43:48
- * @LastEditTime: 2022-07-26 16:26:10
+ * @LastEditTime: 2022-08-06 12:07:40
  */
 const path = require('path');
 const resolve = (dir) => path.join(__dirname, dir);
@@ -25,13 +25,11 @@ module.exports = {
         //     }
         // }
     },
-    configureWebpack: (config) => {
-        if (process.env.NODE_ENV === 'production') {
-            // 生产环境
-            config.mode = 'production'
-        } else {
-            // 开发环境
-            config.mode = 'development'
+    configureWebpack: { // 绝对路径
+        resolve: {
+            alias: {
+                '@': resolve('src')
+            }
         }
     },
     css: {

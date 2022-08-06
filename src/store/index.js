@@ -3,13 +3,14 @@
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 16:58:19
- * @LastEditTime: 2022-08-05 15:23:58
+ * @LastEditTime: 2022-08-06 13:23:58
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '@/router'
-import { getUserInfo, getHaderTabs, setHaderTabs } from '@/utils/storage'
 import { deduplication } from '@/utils'
+import { getUserInfo, getHaderTabs, getAsideMenu, setHaderTabs } from '@/utils/storage'
+
 
 Vue.use(Vuex)
 
@@ -18,7 +19,7 @@ const store = new Vuex.Store({
         userInfo: getUserInfo(),
         isCollapse: false,
         logoShow: false,
-        asideMenu: [],
+        asideMenu: getAsideMenu(),
         haderTabs: getHaderTabs() || [{
             path: "/",
             checked: true,
@@ -30,14 +31,19 @@ const store = new Vuex.Store({
         SET_USERINFO: (state, userInfo) => {
             state.userInfo = userInfo
         },
-        SET_COLLAPSE(state) {
-            state.isCollapse = !state.isCollapse
-            if (state.logoShow) {
-                setTimeout(function() {
-                    state.logoShow = false
-                }, 300)
+        SET_COLLAPSE(state, type) {
+            if (type == undefined) {
+                state.isCollapse = !state.isCollapse
+                if (state.logoShow) {
+                    setTimeout(function() {
+                        state.logoShow = false
+                    }, 300)
+                } else {
+                    state.logoShow = true
+                }
             } else {
-                state.logoShow = true
+                state.isCollapse = type
+                state.logoShow = type
             }
         },
         SET_HADERTABS: (state, data) => {
@@ -54,7 +60,7 @@ const store = new Vuex.Store({
         DEL_TBAS: (state, param) => {
             let List = state.haderTabs;
             List.splice(param.index, 1);
-            if (!param.checked) {
+            if (param.item.checked) {
                 router.push({ path: List[List.length - 1].path });
                 List[List.length - 1].checked = true;
             }

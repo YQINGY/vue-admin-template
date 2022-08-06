@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-07-23 16:24:07
- * @LastEditTime: 2022-08-03 14:36:21
+ * @LastEditTime: 2022-08-06 12:25:52
 -->
 <template>
     <div class="msg-box">
@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { show } from "@/api";
 export default {
     name: "msg",
     data() {
@@ -56,9 +55,6 @@ export default {
             modal: false
         };
     },
-    created() {
-        // this.show();
-    },
     methods: {
         remove(index) {
             this.data.splice(index, 1);
@@ -66,17 +62,6 @@ export default {
         ok() {
             this.$Message.info("Clicked ok");
         },
-        show() {
-            show().then(res => {
-                let data = res.data;
-                console.log(data);
-                if (data.code == 200) {
-                    this.data = data.data;
-                } else {
-                    this.$Message.error(data.message);
-                }
-            });
-        }
     }
 };
 </script>

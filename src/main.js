@@ -8,7 +8,7 @@ import ElementUI from "element-ui"
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import './permission'
+import './router/permission'
 import NProgress from "nprogress"
 
 import "nprogress/nprogress.css"
@@ -17,8 +17,8 @@ import "element-ui/lib/theme-chalk/index.css"
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 
-// NProgress.inc(0.2)
-// NProgress.configure({ easing: "ease", speed: 600, showSpinner: false })
+NProgress.inc(0.2)
+NProgress.configure({ easing: "ease", speed: 600, showSpinner: false })
 
 new Vue({
     router,

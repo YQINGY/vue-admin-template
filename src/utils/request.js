@@ -1,13 +1,13 @@
 /*
  * @Autor: yqy
  * @Date: 2022-07-25 09:43:48
- * @LastEditTime: 2022-08-01 16:28:04
+ * @LastEditTime: 2022-08-06 03:12:34
  */
 import axios from 'axios'
+import store from '@/store'
 import router from '@/router'
 import NProgress from "nprogress"
 import { Message } from "element-ui"
-import store from '@/store'
 import { getUserInfo } from '@/utils/storage'
 
 const service = axios.create({

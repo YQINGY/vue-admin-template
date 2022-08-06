@@ -2,27 +2,26 @@
 /*
  * @Autor: yqy
  * @Date: 2022-08-01 18:49:54
- * @LastEditTime: 2022-08-05 17:54:36
+ * @LastEditTime: 2022-08-06 12:51:32
  */
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Layout from "@/views/layout/Layout"
+import Layout from "@/layout"
+
+//重定向时报错，用这个不让他报错
+
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+    if (onResolve || onReject) {
+        return originalPush.call(this, location, onResolve, onReject)
+    }
+    return originalPush.call(this, location).catch(err => err)
+}
 
 
 Vue.use(VueRouter)
 
-const originalPush = VueRouter.prototype.push
-    // 修改 原型对象中的push方法
-VueRouter.prototype.push = function push(location) {
-    return originalPush.call(this, location).catch(err => err)
-}
-
 export const originalRouter = [{
-        path: "/",
-        redirect: "/index",
-        children: []
-    },
-    {
         path: '/login',
         name: 'Login',
         meta: {
@@ -50,31 +49,37 @@ export const originalRouter = [{
             import ('@/components/404.vue')
     }
 ];
-export const mainRouter = [{
+export const mainRouter = {
     path: "/",
     component: Layout,
+    redirect: '/',
     root: true,
-    meta: { title: '主页' },
-    children: []
-}, ]
+    children: [{
+        path: '/',
+        name: 'index',
+        meta: { title: '主页' },
+        component: () =>
+            import ('@/views/index.vue'),
+    }]
+}
 
 export const addRouter = [{
         title: '用户管理',
-        icon: 'el-icon-eleme"',
+        icon: 'el-icon-user',
         root: true,
         children: [{
             path: '/competence',
             name: 'competence',
-            icon: 'el-icon-eleme"',
+            icon: 'el-icon-user',
             meta: { title: '用户权限' },
             component: () =>
                 import ('@/views/userinfo/competence.vue')
         }]
     },
     {
-        title: '文章管理',
+        title: '内容管理',
         icon: 'el-icon-tickets',
-        root: true,
+        root: false,
         children: [{
                 path: '/tweet',
                 name: 'tweet',
@@ -84,20 +89,12 @@ export const addRouter = [{
                     import ('@/views/article/tweet.vue')
             },
             {
-                path: '/carousel',
-                name: 'carousel',
-                icon: 'el-icon-tickets',
-                meta: { title: '轮播广告' },
-                component: () =>
-                    import ('@/views/article/carousel.vue')
-            },
-            {
                 path: '/msg',
                 name: 'msg',
                 icon: 'el-icon-tickets',
                 meta: { title: '通知消息' },
                 component: () =>
-                    import ('@/views/index.vue'),
+                    import ('@/views/article/msg.vue'),
             }
         ]
     }

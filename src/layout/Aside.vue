@@ -2,7 +2,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-04 23:08:15
+ * @LastEditTime: 2022-08-06 13:29:34
 -->
 <template>
   <el-aside width="auto">
@@ -29,7 +29,7 @@
           <el-menu-item-group v-for="(citem, k) in item.children" :key="k">
             <el-menu-item :index="citem.path">
               <i :class="citem.icon" />
-              {{ citem.name }}
+              {{ citem.meta.title }}
             </el-menu-item>
           </el-menu-item-group>
         </el-submenu>
@@ -39,53 +39,13 @@
 </template>
 
 <script>
+import { getAsideMenu } from "@/utils/storage"; // 验权
 export default {
   name: "layoutAside",
   data() {
     return {
-      addRouter: [
-        {
-          icon: "el-icon-platform-eleme", // 图标样式class
-          title: "用户管理",
-          component: "",
-          children: [
-            {
-              path: "/competence",
-              icon: "el-icon-eleme", // 图标样式class
-              name: "用户权限",
-              component: "",
-              children: [],
-            },
-          ],
-        },
-        {
-          icon: "el-icon-tickets", // 图标样式class
-          title: "推文管理",
-          children: [
-            {
-              path: "/tweet",
-              icon: "el-icon-edit-outline", // 图标样式class
-              name: "发表推文",
-              component: "",
-              children: [],
-            },
-            {
-              path: "/carousel",
-              icon: "el-icon-edit-outline", // 图标样式class
-              name: "轮播广告",
-              component: "",
-              children: [],
-            },
-          ],
-        },
-      ],
-    };
-  },
-  watch: {
-    // 监听浏览器直接输入路由，将此路由添加到tabnavBox
-    // "$route.path": function (val) {
-    //   this.selectmenu(val);
-    // },
+      addRouter: this.$store.state.asideMenu || getAsideMenu()
+    }
   },
   methods: {
     selectmenu(key) {
@@ -96,7 +56,7 @@ export default {
             obj = {
               path: key,
               checked: true,
-              meta: { title: v.name },
+              meta: { title: v.meta.title },
             };
           }
         });

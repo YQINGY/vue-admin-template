@@ -1,7 +1,7 @@
 <!--
  * @Autor: yqy
  * @Date: 2022-08-02 08:58:59
- * @LastEditTime: 2022-08-05 15:12:05
+ * @LastEditTime: 2022-08-06 15:17:25
 -->
 <template>
   <el-header height="110px">
@@ -15,22 +15,25 @@
         ></i>
       </div>
       <div>
-        <p>管理员</p>
+        <p>{{ userInfo.root ? "管理员" : "普通用户" }}</p>
         <p>
           <el-dropdown>
             <span class="el-dropdown-link">
-              王老五<i class="el-icon-arrow-down el-icon--right"></i>
+              {{ userInfo.name
+              }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>用户信息</el-dropdown-item>
               <el-dropdown-item>修改密码</el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item
+                ><span @click="logout">退出登录</span></el-dropdown-item
+              >
             </el-dropdown-menu>
           </el-dropdown>
         </p>
         <img
           class="user-logo"
-          src="https://xuxuxu-ni.github.io/vue-xuAdmin/dist/static/images/icon.jpg"
+          src="../assets/image/avatar.jpg"
           alt="用户头像"
         />
       </div>
@@ -47,7 +50,7 @@
         <i
           v-if="item.meta.title != '主页'"
           class="el-icon-circle-close"
-          @click="removeTab(item,index)"
+          @click="removeTab(item, index)"
         ></i>
       </div>
     </div>
@@ -55,26 +58,55 @@
 </template>
 
 <script>
+import {
+  getUserInfo,
+  removeUserInfo,
+  removeHaderTabs,
+  removeAsideMenu,
+} from "@/utils/storage"; // 验权
 export default {
   name: "layoutAside",
   data() {
     return {
       isCollapse: false,
-      num: 0,
+      userInfo: getUserInfo(),
+      windowWidth: document.documentElement.clientWidth,
     };
   },
-  watch:{
-		'$store.state.haderTabs':function(newVal,oldVal){
-			console.log(newVal,oldVal)
-		}
-	},
+  watch: {
+    windowWidth(val) {
+      if( val < 950)this.$store.commit('SET_COLLAPSE',true);
+    },
+  },
+  mounted() {
+    window.onresize = () => {
+      return (() => {
+        window.fullWidth = document.documentElement.clientWidth;
+        this.windowWidth = window.fullWidth; // 浏览器宽度
+      })();
+    };
+  },
   methods: {
     openMenu(item) {
-      this.$store.commit('UPDATA_TABSTYPE',item)
+      this.$store.commit("UPDATA_TABSTYPE", item);
     },
-    removeTab(item,index) {
-      console.log('-----------',item,index)
-      this.$store.dispatch('asyncDeleTbas',{item, index})
+    removeTab(item, index) {
+      this.$store.dispatch("asyncDeleTbas", { item, index });
+    },
+    logout() {
+      removeUserInfo();
+      removeHaderTabs();
+      removeAsideMenu();
+      const loading = this.$loading({
+        lock: true,
+        text: "玩命加载中...",
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.8)",
+      });
+      setTimeout(() => {
+        loading.close();
+        this.$router.push({ path: "/login", replace: true });
+      }, 500);
     },
   },
 };
