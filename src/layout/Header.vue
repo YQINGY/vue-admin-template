@@ -15,11 +15,11 @@
         ></i>
       </div>
       <div>
-        <p>{{ userInfo.roleId == 0 ? "管理员" : "普通用户" }}</p>
+        <p>{{ userInfo.root ? "管理员" : "普通用户" }}</p>
         <p>
           <el-dropdown>
             <span class="el-dropdown-link">
-              {{ userInfo.username
+              {{ userInfo.name
               }}<i class="el-icon-arrow-down el-icon--right"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
@@ -31,7 +31,7 @@
             </el-dropdown-menu>
           </el-dropdown>
         </p>
-        <img class="user-logo" :src="userInfo.avatar" alt="用户头像" />
+        <img class="user-logo" src="../assets/image/avatar.jpg" alt="用户头像" />
       </div>
     </div>
     <div class="header-right">
