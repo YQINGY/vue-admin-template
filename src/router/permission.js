@@ -11,7 +11,7 @@ import { authorityRouting, temporaryRoutingData } from '@/utils'
 
 
 // 不重定向白名单
-const whiteList = ['/login', 'register', '404'];
+const whiteList = ['/login', '/register', '/404'];
 // 路由全局拦截
 router.beforeEach((to, from, next) => {
     NProgress.start()
