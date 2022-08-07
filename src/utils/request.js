@@ -8,7 +8,7 @@ import store from '@/store'
 import router from '@/router'
 import NProgress from "nprogress"
 import { Message } from "element-ui"
-import { getUserInfo } from '@/utils/storage'
+import { getUserInfo, removeUserInfo, removeHaderTabs, removeAsideMenu } from '@/utils/storage'
 
 const service = axios.create({
     baseURL: process.env.VUE_APP_BASE_URL,
@@ -18,7 +18,7 @@ const service = axios.create({
 
 service.interceptors.request.use(config => {
     NProgress.start()
-    if (store.getters.userInfo) {
+    if (getUserInfo()) {
         config.headers.Authorization = getUserInfo().username + '&' + getUserInfo().token;
     }
     return config
@@ -36,7 +36,9 @@ service.interceptors.response.use(response => {
                         message: '用户凭证已过期，请重新登陆.',
                         type: "warning"
                     })
-                    localStorage.removeItem('userInfo');
+                    removeUserInfo();
+                    removeHaderTabs();
+                    removeAsideMenu();
                     setTimeout(() => {
                         router.push({ path: '/login' });
                     }, 2000);
