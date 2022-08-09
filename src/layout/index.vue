@@ -45,10 +45,12 @@ export default {
 
 <style scoped>
 .home-vue {
-  position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   color: #666;
+}
+::v-deep .el-container{
+  height: 100%;
 }
 ::v-deep .el-header {
   width: 100%;
@@ -57,16 +59,18 @@ export default {
   background-color: #f2f2f2;
 }
 ::v-deep .el-aside {
-  height: 100vh;
+  position: relative;
+  height: 100%;
   overflow: auto;
   transition: width 0.3s;
   background-color: #03152a;
 }
 ::v-deep .el-main {
   width: auto;
-  height: auto;
+  height: 100%;
+  padding: 10px;
+  overflow: auto;
   text-align: center;
-  margin: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
 }
 
